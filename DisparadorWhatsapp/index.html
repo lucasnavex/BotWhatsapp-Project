@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <link rel="stylesheet" href="style.css" />
+    <title>Web Cert Whatsapp API</title>
+  </head>
+  <body>
+    <center>
+      <div class="app">
+        <h1>API da WebCertificados</h1>
+        <h4>A gente te faz digital!</h4>
+        <img src="" alt="" id="qrcode" />
+        <h3>
+          Caso não apareça o QR Code entre em contato com o nosso suporte:
+          <a
+            href="https://api.whatsapp.com/send/?phone=553288949238&text=Necessito+de+suporte+para+uma+automa%C3%A7%C3%A3o&type=phone_number&app_absent=0"
+            >CLIQUE AQUI</a
+          >
+        </h3>
+        <h3>Logs:</h3>
+        <ul class="logs"></ul>
+      </div>
+    </center>
+
+    <script
+      src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.5.1/jquery.min.js"
+      crossorigin="anonymous"
+    ></script>
+    <script
+      src="https://cdnjs.cloudflare.com/ajax/libs/socket.io/2.3.0/socket.io.js"
+      crossorigin="anonymous"
+    ></script>
+    <script>
+      $(document).ready(function () {
+        var socket = io();
+
+        socket.on("message", function (msg) {
+          $(".logs").append($("<li>").text(msg));
+        });
+
+        socket.on("qr", function (src) {
+          $("#qrcode").attr("src", src);
+          $("#qrcode").show();
+        });
+
+        socket.on("ready", function (data) {
+          $("#qrcode").hide();
+        });
+
+        socket.on("authenticated", function (data) {
+          $("#qrcode").hide();
+        });
+      });
+    </script>
+  </body>
+</html>

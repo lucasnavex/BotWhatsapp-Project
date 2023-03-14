@@ -1,4 +1,4 @@
-// numero usado = 32988523276
+
 const {
     Client,
     LocalAuth,
